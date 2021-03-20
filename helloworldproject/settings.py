@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -125,6 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# whitenoiseと同様にsettings.pyにもCSSの設定が必要なので、下記のように追加
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 try:
     from .local_settings import *
@@ -141,6 +145,3 @@ if not DEBUG:
 # dj_database_urlの設定
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
-
-# whitenoiseと同様にsettings.pyにもCSSの設定が必要なので、下記のように追加
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
